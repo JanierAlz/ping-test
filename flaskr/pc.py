@@ -3,7 +3,7 @@ from flask import (
 )
 from flaskr.auth import login_required
 from flaskr.database import db_session
-from flaskr.models import Pc
+from flaskr.models import Pc, Ping
 from sqlalchemy import select
 
 bp = Blueprint('pc', __name__)
@@ -73,6 +73,11 @@ def update(id):
 @login_required
 def delete(id):
     pc = get_pc(id=id)
-    db_session.delete(pc)
-    db_session.commit()
+    ping = db_session.scalars(select(Ping).where(Ping.current_pc_id == id)).all()
+    if len(ping) == 0:
+        db_session.delete(pc)
+        db_session.commit()
+    else:
+        flash("Se ha realizado una prueba de latencia, el equipo no puede ser eliminado")
+        return redirect(url_for('pc.update', id=id))
     return redirect(url_for('pc.index'))
