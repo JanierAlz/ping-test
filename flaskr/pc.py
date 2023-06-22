@@ -51,11 +51,13 @@ def get_pc(id):
 @login_required
 def update(id):
     pc = get_pc(id)
-
+    pings = db_session.scalars(select(Ping).where(Ping.current_pc_id == id)).all()
+    delete = False if len(pings) > 0 else True
     if request.method == 'POST':
         name = request.form['name']
         ipv4 = request.form['ipv4']
         error = None
+
         pattern = "https?://"
         if not name or not ipv4:
             error = 'Missing required fields.'
@@ -70,7 +72,7 @@ def update(id):
             db_session.commit()
             return redirect(url_for('pc.index'))
 
-    return render_template('pc/update.html', pc=pc)
+    return render_template('pc/update.html', pc=pc, delete=delete )
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required

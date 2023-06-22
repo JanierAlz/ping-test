@@ -9,8 +9,9 @@
   <form method="post">
     <label for="title">Nombre</label>
     <input name="name" id="name" value="{{ request.form['name'] }}" required>
-    <label for="ipv4">IPV4, Ingresar direcciones de ip validas como 8.8.8.8 o google.com</label>
+    <label for="ipv4">IPV4</label>
     <input name="ipv4" id="ipv4" value="{{ request.form['ipv4'] }}" required>
+    <em style="margin-bottom:10px">Ingresar direcciones de ip validas como 8.8.8.8 o google.com</em>
     <input type="submit" value="Guardar">
   </form>
 {% endblock %}

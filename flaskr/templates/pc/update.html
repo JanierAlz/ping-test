@@ -14,8 +14,11 @@
       value="{{ request.form['ipv4'] or pc.ipv4 }}" required>
     <input type="submit" value="Guardar">
   </form>
-  <hr>
-  <form action="{{ url_for('pc.delete', id=pc.id) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('¿esta seguro que desea eliminar el equipo?');">
-  </form>
+  {% if delete %}
+    <form action="{{ url_for('pc.delete', id=pc.id) }}" method="post" style="position: absolute;bottom: 24px;right: 15px;">
+      <input class="danger" type="submit" value="Delete" onclick="return confirm('¿esta seguro que desea eliminar el equipo?');">
+    </form>
+  {% else %}
+    <em style="margin-bottom:10px">Los equipos a los que se le haya realizado pruebas de latencia no pueden ser eliminados</em>
+  {% endif %}
 {% endblock %}
