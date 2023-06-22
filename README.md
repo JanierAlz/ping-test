@@ -23,4 +23,15 @@ Por ultimo, para iniciar el proyecto, ejecuta el comando:
  ```shell
 $ flask --app flaskr run
 ```
+
+# Docker
+
+De manera alternativa, se puede ejecutar el proyecto utilizando docker, en la raiz del proyecto ejecutar el comando:
+
+ ```shell
+$ fdocker compose -p <app_name> up -d
+```
+donde app_name, es el nombre que le quieras dar al container
+
+
 Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000```
