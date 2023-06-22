@@ -37,6 +37,7 @@ def create(id):
     ping_stats.min_ms  = ping_pc.rtt_min_ms
     ping_stats.avg_ms =  ping_pc.rtt_avg_ms
     ping_stats.current_pc_id = pc.id
+    ping_stats.ipv4_used = pc.ipv4
     db_session.add(ping_stats)
     db_session.commit()
     return render_template('ping/ping.html', ping=ping_stats, pc=pc)

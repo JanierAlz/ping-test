@@ -1,6 +1,6 @@
 # Requirements
 
-Python 3.11.0 es requerido para iniciar este proyecto.
+Python 3.11.2 es requerido para iniciar este proyecto.
 
 # Project execution
 
@@ -23,4 +23,16 @@ Por ultimo, para iniciar el proyecto, ejecuta el comando:
  ```shell
 $ flask --app flaskr run
 ```
-Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000```
+
+# Docker
+
+De manera alternativa, se puede ejecutar el proyecto utilizando docker, en la raiz del proyecto ejecutar el comando:
+
+ ```shell
+$ docker compose -p <app_name> up -d
+```
+donde ```<app_name>```, es el nombre que le quieras dar al container
+
+
+Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000``` en tu explorador de preferencia, el proyecto viene 
+cargado con unas plantillas basicas para facil visualizacion de la informacion.
