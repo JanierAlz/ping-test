@@ -15,7 +15,9 @@ def index():
     """pc = db_session.scalars(pc).all()
     response = [row.to_json() for row in pc]
     return response"""
-    return render_template('pc/index.html', pcs=db_session.scalars(pc))
+    pcs= db_session.scalars(pc).all()
+    empty = True if len(pcs)==0 else False
+    return render_template('pc/index.html', pcs=pcs, empty=empty )
 
 
 

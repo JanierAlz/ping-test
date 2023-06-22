@@ -25,4 +25,7 @@
       <hr>
     {% endif %}
   {% endfor %}
+  {% if empty %}
+    <p style="margin-bottom:10px">No hay equipos ingresados hasta el momento</p>
+  {% endif %}
 {% endblock %}
