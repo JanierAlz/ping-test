@@ -31,7 +31,7 @@ De manera alternativa, se puede ejecutar el proyecto utilizando docker, en la ra
  ```shell
 $ docker compose -p <app_name> up -d
 ```
-donde app_name, es el nombre que le quieras dar al container
+donde ```<app_name>```, es el nombre que le quieras dar al container
 
 
 Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000```
