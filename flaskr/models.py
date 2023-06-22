@@ -31,7 +31,7 @@ class Ping(Base):
     __tablename__= 'ping'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     current_pc_id: Mapped[int] = mapped_column(ForeignKey("pc.id"))
-    created: Mapped[str] = mapped_column(String(15), default=datetime.now().strftime('%Y-%m-%d'))
+    created: Mapped[str] = mapped_column(String(15), default=datetime.now().strftime('%Y-%m-%d, %H:%M:%S'))
     ipv4_used: Mapped[str] = mapped_column(String(20), nullable=False)
     success: Mapped[bool] = mapped_column(Boolean, nullable=False)
     sent: Mapped[int]  = mapped_column(Integer, nullable=False)

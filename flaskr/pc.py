@@ -33,7 +33,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            ip = re.sub(pattern, "", ipv4)
+            ip= re.sub(pattern, "", ipv4)
             pc = Pc(name=name, ipv4=re.sub(pattern, "", ipv4))
             db_session.add(pc)
             db_session.commit()

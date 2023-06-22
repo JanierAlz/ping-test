@@ -14,8 +14,8 @@
             <div class="about">IPV4: {{ pc.ipv4 }}</div>
             </div>
         </header>
-        <p class="body">ID:{{ ping.id }}, exitoso: {{ ping.success }}, enviados: {{ ping.sent }}</p>
-        <p class="body">perdidos: {{ ping.lost }}, IP usada: {{ ping.ipv4_used }} creado: {{ ping.created }}</p>
+        <p class="body">ID:{{ ping.id }}, estado: {{ "Exitosa" if ping.success else "Fallida" }}, paquetes enviados: {{ ping.sent }}</p>
+        <p class="body">paquetes perdidos: {{ ping.lost }}, IP usada: {{ ping.ipv4_used }} realizada: {{ ping.created }}</p>
         </article>
         {% if not loop.last %}
         <hr>
