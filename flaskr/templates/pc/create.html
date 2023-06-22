@@ -7,10 +7,10 @@
 
 {% block content %}
   <form method="post">
-    <label for="title">Name</label>
+    <label for="title">Nombre</label>
     <input name="name" id="name" value="{{ request.form['name'] }}" required>
-    <label for="title">IPV4</label>
+    <label for="ipv4">IPV4, Ingresar direcciones de ip validas como 8.8.8.8 o google.com</label>
     <input name="ipv4" id="ipv4" value="{{ request.form['ipv4'] }}" required>
-    <input type="submit" value="Save">
+    <input type="submit" value="Guardar">
   </form>
 {% endblock %}

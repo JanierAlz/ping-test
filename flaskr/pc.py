@@ -1,3 +1,4 @@
+import re
 from flask import (
     Blueprint, flash, redirect, render_template, request, url_for
 )
@@ -25,14 +26,15 @@ def create():
         name = request.form['name']
         ipv4 = request.form['ipv4']
         error = None
-
+        pattern = "https?://"
         if not name or not ipv4:
             error = 'Missing required fields.'
 
         if error is not None:
             flash(error)
         else:
-            pc = Pc(name=name, ipv4=ipv4)
+            ip = re.sub(pattern, "", ipv4)
+            pc = Pc(name=name, ipv4=re.sub(pattern, "", ipv4))
             db_session.add(pc)
             db_session.commit()
             return redirect(url_for('pc.index'))
@@ -54,6 +56,7 @@ def update(id):
         name = request.form['name']
         ipv4 = request.form['ipv4']
         error = None
+        pattern = "https?://"
         if not name or not ipv4:
             error = 'Missing required fields.'
 
@@ -62,7 +65,7 @@ def update(id):
         else:
             pc = get_pc(id=id)
             pc.name = name
-            pc.ipv4 = ipv4
+            pc.ipv4 = re.sub(pattern, "", ipv4)
             db_session.add(pc)
             db_session.commit()
             return redirect(url_for('pc.index'))

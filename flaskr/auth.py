@@ -17,22 +17,22 @@ def get_user(id):
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         error = None
 
-        if not username:
-            error = 'El nombre de usuario es requerido.'
+        if not email:
+            error = 'El correo de usuario es requerido.'
         elif not password:
             error = 'Una clave es requerida.'
 
         if error is None:
             try:
-                user = User(username= username, password=generate_password_hash(password))
+                user = User(email= email, password=generate_password_hash(password))
                 db_session.add(user)
                 db_session.commit()
             except:
-                error = f"El usuario {username} ya se encuentra registrado."
+                error = f"El correo {email} ya se encuentra registrado."
             else:
                 return redirect(url_for("auth.login"))
 
@@ -44,9 +44,9 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']        
-        user = db_session.scalars(select(User).where(User.username == username)).first()
+        user = db_session.scalars(select(User).where(User.email == email)).first()
         error = None
         if user is None:
             error = 'Usuario incorrecto.'

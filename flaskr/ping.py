@@ -28,17 +28,20 @@ def create(id):
         error = "PC no se encuentra"
     if error:
         flash(error)
-    ping_pc = ping(pc.ipv4)
-    ping_stats = Ping()
-    ping_stats.success = False if ping_pc.stats_lost_ratio == 1 else True
-    ping_stats.lost = ping_pc.stats_packets_lost
-    ping_stats.sent = ping_pc.stats_packets_sent
-    ping_stats.max_ms = ping_pc.rtt_max_ms
-    ping_stats.min_ms  = ping_pc.rtt_min_ms
-    ping_stats.avg_ms =  ping_pc.rtt_avg_ms
-    ping_stats.current_pc_id = pc.id
-    ping_stats.ipv4_used = pc.ipv4
-    db_session.add(ping_stats)
-    db_session.commit()
+    try:
+        ping_pc = ping(pc.ipv4)
+        ping_stats = Ping()
+        ping_stats.success = False if ping_pc.stats_lost_ratio == 1 else True
+        ping_stats.lost = ping_pc.stats_packets_lost
+        ping_stats.sent = ping_pc.stats_packets_sent
+        ping_stats.max_ms = ping_pc.rtt_max_ms
+        ping_stats.min_ms  = ping_pc.rtt_min_ms
+        ping_stats.avg_ms =  ping_pc.rtt_avg_ms
+        ping_stats.current_pc_id = pc.id
+        ping_stats.ipv4_used = pc.ipv4
+        db_session.add(ping_stats)
+        db_session.commit()
+    except:
+        flash(f"ocurrio un error en la solicitud a {pc.ipv4}, verfique que ipv4 sea una direccion de ip o url valida")
     return render_template('ping/ping.html', ping=ping_stats, pc=pc)
 

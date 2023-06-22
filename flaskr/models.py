@@ -7,7 +7,7 @@ import json
 class User(Base):
     __tablename__= 'users'
     id: Mapped[int] = Column(Integer, primary_key=True)
-    username: Mapped[str] = Column(String(10), unique=True)
+    email: Mapped[str] = Column(String(10), unique=True)
     password: Mapped[str] = Column(String(8))
 
 class Pc(Base):
