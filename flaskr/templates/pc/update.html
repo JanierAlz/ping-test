@@ -16,7 +16,7 @@
   </form>
   {% if delete %}
     <form action="{{ url_for('pc.delete', id=pc.id) }}" method="post" style="position: absolute;bottom: 24px;right: 15px;">
-      <input class="danger" type="submit" value="Delete" onclick="return confirm('¿esta seguro que desea eliminar el equipo?');">
+      <input class="danger" type="submit" value="Eliminar" onclick="return confirm('¿esta seguro que desea eliminar el equipo?');">
     </form>
   {% else %}
     <em style="margin-bottom:10px">Los equipos a los que se le haya realizado pruebas de latencia no pueden ser eliminados</em>

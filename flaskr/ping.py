@@ -15,7 +15,8 @@ bp = Blueprint('ping', __name__)
 def index(id):
     pc = get_pc(id=id)
     history = db_session.scalars(select(Ping, Pc).join(Pc).where(Pc.id == id).order_by(desc(Ping.created))).all()
-    return render_template('ping/index.html', pings=history, pc=pc)
+    empty = False if len(history) > 0 else True
+    return render_template('ping/index.html', pings=history, pc=pc, empty=empty)
 
 
 @bp.route('/<int:id>/ping')
