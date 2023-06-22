@@ -1,6 +1,3 @@
-# ping-test
-
-
 # Requirements
 
 Python 3.11.0 es requerido para iniciar este proyecto.
