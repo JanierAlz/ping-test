@@ -34,4 +34,5 @@ $ docker compose -p <app_name> up -d
 donde ```<app_name>```, es el nombre que le quieras dar al container
 
 
-Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000``` en tu explorador de preferencia
+Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000``` en tu explorador de preferencia, el proyecto viene 
+cargado con unas plantillas basicas para facil visualizacion de la informacion.
