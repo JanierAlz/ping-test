@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from flaskr.database import Base
 from datetime import datetime
-
+import json
 class User(Base):
     __tablename__= 'users'
     id: Mapped[int] = Column(Integer, primary_key=True)
@@ -15,12 +15,18 @@ class Pc(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(30))
     ipv4: Mapped[str] = mapped_column(String(20))
-    disabled: Mapped[bool] = mapped_column(Boolean, default=False)
     created: Mapped[str] = mapped_column(String(15), default=datetime.now().strftime('%Y-%m-%d'))
 
     ping_history: Mapped[List["Ping"]] = relationship(back_populates="current_pc", cascade="all, delete-orphan")
 
-
+    def to_json(self):
+        pc = {
+            "id": self.id,
+            "name": self.name,
+            "ipv4": self.ipv4,
+            "created": self.created
+        }
+        return json.dumps(pc)
 class Ping(Base):
     __tablename__= 'ping'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

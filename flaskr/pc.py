@@ -11,7 +11,11 @@ bp = Blueprint('pc', __name__)
 @bp.route('/')
 def index():
     pc = select(Pc)
+    """pc = db_session.scalars(pc).all()
+    response = [row.to_json() for row in pc]
+    return response"""
     return render_template('pc/index.html', pcs=db_session.scalars(pc))
+
 
 
 @bp.route('/create', methods=('GET', 'POST'))
