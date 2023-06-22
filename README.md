@@ -1,6 +1,6 @@
 # Requirements
 
-Python 3.11.0 es requerido para iniciar este proyecto.
+Python 3.11.2 es requerido para iniciar este proyecto.
 
 # Project execution
 
