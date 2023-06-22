@@ -19,11 +19,6 @@ Luego de activar el entorno virtual, ejecuta el siguiente comando para instalar 
 $ pip install -r requirements.txt
 ```
 
-Luego de terminar de instalar las depencias, ejecuta el siguiente comando para iniciar la base de datos SQLite:
-```shell
-$ flask --app flaskr init-db
-```
-
 Por ultimo, para iniciar el proyecto, ejecuta el comando:
  ```shell
 $ flask --app flaskr run

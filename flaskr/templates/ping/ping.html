@@ -9,13 +9,12 @@
   <article class="article">
     <header>
         <div>
-        <h1>{{ ping['PC.name'] }}</h1>
-        <div class="about">IPV4: {{ ping['PC.ipv4'] }}</div>
-        
+        <h1>{{ pc.name }}</h1>
+        <div class="about">IPV4: {{ pc.ipv4 }}</div>
         </div>
     </header>
-    <p class="body">ID:{{ ping['id'] }}, exitoso: {{ ping['success'] }}, enviados: {{ ping['sent'] }}</p>
-    <p class="body">perdidos: {{ ping['lost'] }}</p>
+    <p class="body">ID:{{ ping.id }}, exitoso: {{ ping.success }}, enviados: {{ ping.sent }}</p>
+    <p class="body">perdidos: {{ ping.lost }}</p>
     
   </article>
 {% endblock %}

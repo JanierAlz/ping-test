@@ -10,15 +10,15 @@
         <article class="article">
         <header>
             <div>
-            <h1>{{ ping['name'] }}</h1>
-            <div class="about">IPV4: {{ ping['ipv4'] }}</div>
+            <h1>{{ pc.name }}</h1>
+            <div class="about">IPV4: {{ pc.ipv4 }}</div>
             </div>
         </header>
-        <p class="body">ID:{{ ping['id'] }}, exitoso: {{ ping['success'] }}, enviados: {{ ping['sent'] }}</p>
-        <p class="body">perdidos: {{ ping['lost'] }}, creado: {{ ping['created'].strftime('%Y-%m-%d') }}</p>
+        <p class="body">ID:{{ ping.id }}, exitoso: {{ ping.success }}, enviados: {{ ping.sent }}</p>
+        <p class="body">perdidos: {{ ping.lost }}, creado: {{ ping.created }}</p>
         </article>
         {% if not loop.last %}
         <hr>
         {% endif %}
-{% endfor %}
+    {% endfor %}
 {% endblock %}

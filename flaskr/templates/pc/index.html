@@ -12,14 +12,14 @@
     <article class="article">
       <header>
         <div>
-          <h1>{{ pc['name'] }}</h1>
-          <div class="about">Added: {{ pc['created'].strftime('%Y-%m-%d') }}</div>
+          <h1>{{ pc.name }}</h1>
+          <div class="about">Added: {{ pc.created }}</div>
         </div>
       </header>
-      <p class="body">ID:{{ pc['id'] }}, IPV4: {{ pc['ipv4'] }}</p>
-      <a class="action" href="{{ url_for('pc.update', id=pc['id']) }}">Editar</a>
-      <a class="action" href="{{ url_for('ping.create', id=pc['id']) }}">Ping</a>
-      <a class="action" href="{{ url_for('ping.index', id=pc['id']) }}">Historial</a>
+      <p class="body">ID:{{ pc.id }}, IPV4: {{ pc.ipv4 }}</p>
+      <a class="action" href="{{ url_for('pc.update', id=pc.id) }}">Editar</a>
+      <a class="action" href="{{ url_for('ping.create', id=pc.id) }}">Ping</a>
+      <a class="action" href="{{ url_for('ping.index', id=pc.id) }}">Historial</a>
     </article>
     {% if not loop.last %}
       <hr>

@@ -1,21 +1,15 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, redirect, render_template, request, url_for
 )
-from werkzeug.exceptions import abort
-
 from flaskr.auth import login_required
-from flaskr.db import get_db
+from flaskr.database import db_session
+from flaskr.models import Pc
 
 bp = Blueprint('pc', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
-    pc = db.execute(
-        'SELECT id, name, created, ipv4'
-        ' FROM pc '
-        ' ORDER BY created DESC'
-    ).fetchall()
+    pc = Pc.query.filter(Pc.disabled == False).all()
     return render_template('pc/index.html', pcs=pc)
 
 
@@ -33,26 +27,16 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO pc (name, ipv4)'
-                ' VALUES (?, ?)',
-                (name, ipv4)
-            )
-            db.commit()
+            pc = Pc(name=name, ipv4=ipv4)
+            db_session.add(pc)
+            db_session.commit()
             return redirect(url_for('pc.index'))
 
     return render_template('pc/create.html')
 
 
 def get_pc(id):
-    pc = get_db().execute(
-        'SELECT id, name, ipv4, created '
-        ' FROM pc '
-        ' WHERE id = ?',
-        (id,)
-    ).fetchone()
-
+    pc = Pc.query.filter(Pc.id == id).first()
     return pc
 
 
@@ -65,20 +49,17 @@ def update(id):
         name = request.form['name']
         ipv4 = request.form['ipv4']
         error = None
-
         if not name or not ipv4:
             error = 'Missing required fields.'
 
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'UPDATE pc SET name = ?, ipv4 = ?'
-                ' WHERE id = ?',
-                (name, ipv4, id)
-            )
-            db.commit()
+            pc = Pc.query.filter(Pc.id == id).first()
+            pc.name = name
+            pc.ipv4 = ipv4
+            db_session.add(pc)
+            db_session.commit()
             return redirect(url_for('pc.index'))
 
     return render_template('pc/update.html', pc=pc)
@@ -86,8 +67,8 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    get_pc(id)
-    db = get_db()
-    db.execute('DELETE FROM pc WHERE id = ?', (id,))
-    db.commit()
+    pc = Pc.query.filter(Pc.id == id).first()
+    pc.disabled = True
+    db_session.add(pc)
+    db_session.commit()
     return redirect(url_for('pc.index'))
