@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Historial de pings{% endblock %}</h1>
+    <a class="action" href="{{ url_for('pc.index') }}">Regresar</a>
+    {% endblock %}
+
+    {% block content %}
+    {% for ping in pings %}
+        <article class="article">
+        <header>
+            <div>
+            <h1>{{ ping['name'] }}</h1>
+            <div class="about">IPV4: {{ ping['ipv4'] }}</div>
+            </div>
+        </header>
+        <p class="body">ID:{{ ping['id'] }}, exitoso: {{ ping['success'] }}, enviados: {{ ping['sent'] }}</p>
+        <p class="body">perdidos: {{ ping['lost'] }}, creado: {{ ping['created'].strftime('%Y-%m-%d') }}</p>
+        </article>
+        {% if not loop.last %}
+        <hr>
+        {% endif %}
+{% endfor %}
+{% endblock %}

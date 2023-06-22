@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Equipos agregados{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('pc.create') }}">Agregar</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for pc in pcs %}
+    <article class="article">
+      <header>
+        <div>
+          <h1>{{ pc['name'] }}</h1>
+          <div class="about">Added: {{ pc['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+      </header>
+      <p class="body">ID:{{ pc['id'] }}, IPV4: {{ pc['ipv4'] }}</p>
+      <a class="action" href="{{ url_for('pc.update', id=pc['id']) }}">Editar</a>
+      <a class="action" href="{{ url_for('ping.create', id=pc['id']) }}">Ping</a>
+      <a class="action" href="{{ url_for('ping.index', id=pc['id']) }}">Historial</a>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

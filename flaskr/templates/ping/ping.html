@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Resultados de la prueba de latencia{% endblock %}</h1>
+  <a class="action" href="{{ url_for('pc.index') }}">regresar</a>
+{% endblock %}
+
+{% block content %}
+  <article class="article">
+    <header>
+        <div>
+        <h1>{{ ping['PC.name'] }}</h1>
+        <div class="about">IPV4: {{ ping['PC.ipv4'] }}</div>
+        
+        </div>
+    </header>
+    <p class="body">ID:{{ ping['id'] }}, exitoso: {{ ping['success'] }}, enviados: {{ ping['sent'] }}</p>
+    <p class="body">perdidos: {{ ping['lost'] }}</p>
+    
+  </article>
+{% endblock %}
