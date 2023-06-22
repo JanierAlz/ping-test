@@ -15,7 +15,7 @@
             </div>
         </header>
         <p class="body">ID:{{ ping.id }}, exitoso: {{ ping.success }}, enviados: {{ ping.sent }}</p>
-        <p class="body">perdidos: {{ ping.lost }}, creado: {{ ping.created }}</p>
+        <p class="body">perdidos: {{ ping.lost }}, IP usada: {{ ping.ipv4_used }} creado: {{ ping.created }}</p>
         </article>
         {% if not loop.last %}
         <hr>
