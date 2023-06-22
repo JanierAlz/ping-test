@@ -5,9 +5,14 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.models import User
 from flaskr.database import db_session
-
+from sqlalchemy import select
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+def get_user(id):
+    user = db_session.scalars(select(User).where(User.id == id)).first()
+    return user
+
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
@@ -41,7 +46,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']        
-        user = User.query.filter(User.username == username).first()
+        user = db_session.scalars(select(User).where(User.username == username)).first()
         error = None
         if user is None:
             error = 'Usuario incorrecto.'
@@ -65,7 +70,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = User.query.filter(User.id == user_id).first()
+        g.user = get_user(id=user_id)
 
 @bp.route('/logout')
 def logout():
@@ -81,3 +86,4 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+

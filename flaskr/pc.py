@@ -4,13 +4,14 @@ from flask import (
 from flaskr.auth import login_required
 from flaskr.database import db_session
 from flaskr.models import Pc
+from sqlalchemy import select
 
 bp = Blueprint('pc', __name__)
 
 @bp.route('/')
 def index():
-    pc = Pc.query.filter(Pc.disabled == False).all()
-    return render_template('pc/index.html', pcs=pc)
+    pc = select(Pc)
+    return render_template('pc/index.html', pcs=db_session.scalars(pc))
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -36,7 +37,7 @@ def create():
 
 
 def get_pc(id):
-    pc = Pc.query.filter(Pc.id == id).first()
+    pc = db_session.scalars(select(Pc).where(Pc.id == id)).first()
     return pc
 
 
@@ -55,7 +56,7 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            pc = Pc.query.filter(Pc.id == id).first()
+            pc = get_pc(id=id)
             pc.name = name
             pc.ipv4 = ipv4
             db_session.add(pc)
@@ -67,8 +68,7 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    pc = Pc.query.filter(Pc.id == id).first()
-    pc.disabled = True
-    db_session.add(pc)
+    pc = get_pc(id=id)
+    db_session.delete(pc)
     db_session.commit()
     return redirect(url_for('pc.index'))
