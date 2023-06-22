@@ -28,3 +28,4 @@ Por ultimo, para iniciar el proyecto, ejecuta el comando:
  ```shell
 $ flask --app flaskr run
 ```
+Una vez iniciado el proyecto, dirigete a la url ```http://localhost:5000```
